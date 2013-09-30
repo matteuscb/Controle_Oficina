@@ -22,10 +22,10 @@ public class Pesquisa extends javax.swing.JFrame {
      * Creates new form Pesquisa
      */
     List<Caixa> caixasE, caixasS;//List de uma classe do modelo para utilização na tabela;
-    DefaultTableModel tmCaixaE = new DefaultTableModel(null, new String[]{"Cliente", "Valor", "Data"});
-    DefaultTableModel tmCaixaS = new DefaultTableModel(null, new String[]{"Cliente", "Valor", "Data"});
+    DefaultTableModel tmCaixaE = new DefaultTableModel(null, new String[]{"Cliente", "Valor", "Data", "Pago"});
+    DefaultTableModel tmCaixaS = new DefaultTableModel(null, new String[]{"Cliente", "Valor", "Data", "Pago"});
     DAO dao = new DAO();
-    
+
     public Pesquisa() {
         this.setExtendedState(MAXIMIZED_BOTH);
         initComponents();
@@ -50,13 +50,15 @@ public class Pesquisa extends javax.swing.JFrame {
         jTLiquido = new javax.swing.JTextField();
         jTSaida = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        Tabela_Entrada = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        Tabela_Saida = new javax.swing.JTable();
         jBPesquisar = new javax.swing.JButton();
         jDCInicial = new com.toedter.calendar.JDateChooser();
         jDCFinal = new com.toedter.calendar.JDateChooser();
         jBVoltar = new javax.swing.JButton();
+        jBAlterar_Saida = new javax.swing.JButton();
+        jBAlterar_Entrada = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,17 +83,18 @@ public class Pesquisa extends javax.swing.JFrame {
 
         jTSaida.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 
-        jTable1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jTable1.setModel(tmCaixaE);
-        jTable1.setRowHeight(30);
-        jScrollPane1.setViewportView(jTable1);
+        Tabela_Entrada.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        Tabela_Entrada.setModel(tmCaixaE);
+        Tabela_Entrada.setRowHeight(30);
+        jScrollPane1.setViewportView(Tabela_Entrada);
 
-        jTable2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jTable2.setModel(tmCaixaS);
-        jTable2.setRowHeight(30);
-        jScrollPane2.setViewportView(jTable2);
+        Tabela_Saida.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        Tabela_Saida.setModel(tmCaixaS);
+        Tabela_Saida.setRowHeight(30);
+        jScrollPane2.setViewportView(Tabela_Saida);
 
         jBPesquisar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jBPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/pesquisar.png"))); // NOI18N
         jBPesquisar.setText("Pesquisar");
         jBPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,10 +107,29 @@ public class Pesquisa extends javax.swing.JFrame {
         jDCFinal.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jBVoltar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jBVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/excluir.gif"))); // NOI18N
         jBVoltar.setText("Voltar");
         jBVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBVoltarActionPerformed(evt);
+            }
+        });
+
+        jBAlterar_Saida.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jBAlterar_Saida.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/editar.png"))); // NOI18N
+        jBAlterar_Saida.setText("Alterar S");
+        jBAlterar_Saida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAlterar_SaidaActionPerformed(evt);
+            }
+        });
+
+        jBAlterar_Entrada.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jBAlterar_Entrada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/editar.png"))); // NOI18N
+        jBAlterar_Entrada.setText("Alterar E");
+        jBAlterar_Entrada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAlterar_EntradaActionPerformed(evt);
             }
         });
 
@@ -118,41 +140,44 @@ public class Pesquisa extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(391, 391, 391)
-                        .addComponent(jLDataInicial)
-                        .addGap(18, 18, 18)
-                        .addComponent(jDCInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(jLDataFinal)
-                        .addGap(18, 18, 18)
-                        .addComponent(jDCFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGap(47, 47, 47)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLTotalEntrada)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(198, 198, 198)
-                                .addComponent(jLTotal_Saida)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jBPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jBVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jTEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLDataInicial)
+                        .addGap(18, 18, 18)
+                        .addComponent(jDCInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(509, 509, 509)
-                        .addComponent(jLLiquido)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTLiquido, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(42, Short.MAX_VALUE))
+                        .addComponent(jLTotal_Saida)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jBPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBAlterar_Saida, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jBAlterar_Entrada, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLDataFinal)
+                                .addGap(18, 18, 18)
+                                .addComponent(jDCFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(28, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLLiquido)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTLiquido, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(491, 491, 491))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jScrollPane1, jScrollPane2});
@@ -164,26 +189,23 @@ public class Pesquisa extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jDCFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLDataFinal)
+                    .addComponent(jLDataInicial)
+                    .addComponent(jDCInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jDCInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLDataInicial))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jDCFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLDataFinal))
-                                .addGap(2, 2, 2)))
-                        .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(165, 165, 165)
                         .addComponent(jBPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jBAlterar_Entrada, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBAlterar_Saida, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
                         .addComponent(jBVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,11 +213,11 @@ public class Pesquisa extends javax.swing.JFrame {
                     .addComponent(jLTotal_Saida)
                     .addComponent(jTEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLTotalEntrada))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLLiquido)
                     .addComponent(jTLiquido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jScrollPane1, jScrollPane2});
@@ -207,47 +229,63 @@ public class Pesquisa extends javax.swing.JFrame {
         if ((jDCInicial.getDate() == null) || (jDCFinal.getDate() == null)) {
             JOptionPane.showMessageDialog(null, "Por favor, preencher as datas necessárias para pesquisa!");
         } else {
-            
+
             caixasE = dao.listarEntrada(jDCInicial.getDate(), jDCFinal.getDate());
-            
+
             caixasS = dao.listarSaida(jDCInicial.getDate(), jDCFinal.getDate());
-            
+
             while (tmCaixaE.getRowCount() > 0) {
                 tmCaixaE.removeRow(0);
             }
             while (tmCaixaS.getRowCount() > 0) {
                 tmCaixaS.removeRow(0);
             }
-            
+
             for (int i = 0; i < caixasE.size(); i++) {
-                
+
                 tmCaixaE.addRow(new String[]{null, null, null, null});
                 tmCaixaE.setValueAt(caixasE.get(i).getCliente(), i, 0);
                 tmCaixaE.setValueAt(format(caixasE.get(i).getValor()), i, 1);
                 tmCaixaE.setValueAt(formatData(caixasE.get(i).getData()), i, 2);
+                tmCaixaE.setValueAt(caixasE.get(i).getPago(), i, 3);
             }
-            
+
             for (int i = 0; i < caixasS.size(); i++) {
-                
+
                 tmCaixaS.addRow(new String[]{null, null, null, null});
                 tmCaixaS.setValueAt(caixasS.get(i).getCliente(), i, 0);
                 tmCaixaS.setValueAt(format(caixasS.get(i).getValor()), i, 1);
                 tmCaixaS.setValueAt(formatData(caixasS.get(i).getData()), i, 2);
+                tmCaixaS.setValueAt(caixasS.get(i).getPago(), i, 3);
             }
             jTSaida.setText((format(dao.TotalSaida(jDCInicial.getDate(), jDCFinal.getDate()))));
             jTEntrada.setText((format(dao.TotalEntrada(jDCInicial.getDate(), jDCFinal.getDate()))));
             jTLiquido.setText((format(dao.TotalLiquido(jDCInicial.getDate(), jDCFinal.getDate()))));
         }
-        
-        
+
+
     }//GEN-LAST:event_jBPesquisarActionPerformed
-    
+
     private void jBVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVoltarActionPerformed
         Inicio in = new Inicio();
         in.setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_jBVoltarActionPerformed
+
+    private void jBAlterar_SaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterar_SaidaActionPerformed
+        Alterar ac = new Alterar(caixasS.get(Tabela_Saida.getSelectedRow()).getId());
+        ac.setVisible(true);
+    }//GEN-LAST:event_jBAlterar_SaidaActionPerformed
+
+    private void jBAlterar_EntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterar_EntradaActionPerformed
+        Alterar ac = new Alterar(caixasE.get(Tabela_Entrada.getSelectedRow()).getId());
+        ac.setVisible(true);
+    }//GEN-LAST:event_jBAlterar_EntradaActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable Tabela_Entrada;
+    private javax.swing.JTable Tabela_Saida;
+    private javax.swing.JButton jBAlterar_Entrada;
+    private javax.swing.JButton jBAlterar_Saida;
     private javax.swing.JButton jBPesquisar;
     private javax.swing.JButton jBVoltar;
     private com.toedter.calendar.JDateChooser jDCFinal;
@@ -262,14 +300,12 @@ public class Pesquisa extends javax.swing.JFrame {
     private javax.swing.JTextField jTEntrada;
     private javax.swing.JTextField jTLiquido;
     private javax.swing.JTextField jTSaida;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 
     public static String format(double x) {
         return String.format("R$ %.2f", x);
     }
-    
+
     public static String formatData(java.util.Date d) {
         String aux, aux2 = "";
         Calendar cal = Calendar.getInstance();

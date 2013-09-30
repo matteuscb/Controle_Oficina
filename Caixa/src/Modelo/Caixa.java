@@ -55,9 +55,17 @@ public class Caixa {
         this.tipo = tipo;
     }
 
+    public String getPago() {
+        return pago;
+    }
+
+    public void setPago(String pago) {
+        this.pago = pago;
+    }
     private Long id;
     private Double valor;
     private Date data;
     private String cliente;
     private String tipo;
+    private String pago;
 }

@@ -11,7 +11,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -43,6 +42,24 @@ public class DAO {
         }
     }
 
+    public void alterar(Caixa caixa) throws SQLException {
+        String sql = "update caixa set cai_cliente = ?, cai_data = ?, cai_valor = ?, cai_pago = ?"
+                + "where cai_id = ?";
+        try {
+            PreparedStatement stmt = this.conexao.prepareStatement(sql);
+            stmt.setString(1, caixa.getCliente());
+            stmt.setDate(2, new java.sql.Date(caixa.getData().getTime()));
+            stmt.setDouble(3, caixa.getValor());
+            stmt.setString(4, caixa.getPago());
+            stmt.setLong(5, caixa.getId());
+            stmt.execute();
+            stmt.close();
+            JOptionPane.showMessageDialog(null, "Alteração efetuada.");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public List<Caixa> listarEntrada(java.util.Date DataI, java.util.Date DataF) {
         List<Caixa> caixas = new ArrayList<>();
         String sql = "select * from caixa where cai_data >= ? and cai_data <=? and  cai_tipo = 'E'";
@@ -55,9 +72,11 @@ public class DAO {
 
             while (rs.next()) {
                 Caixa caixa = new Caixa();
+                caixa.setId(rs.getLong("cai_id"));
                 caixa.setCliente(rs.getString("cai_cliente"));
                 caixa.setData(rs.getDate("cai_data"));
                 caixa.setValor(rs.getDouble("cai_valor"));
+                caixa.setPago(rs.getString("cai_pago"));
                 caixas.add(caixa);
             }
             rs.close();
@@ -80,9 +99,11 @@ public class DAO {
 
             while (rs.next()) {
                 Caixa caixa = new Caixa();
+                caixa.setId(rs.getLong("cai_id"));
                 caixa.setCliente(rs.getString("cai_cliente"));
                 caixa.setData(rs.getDate("cai_data"));
                 caixa.setValor(rs.getDouble("cai_valor"));
+                caixa.setPago(rs.getString("cai_pago"));
                 caixas.add(caixa);
             }
             rs.close();
@@ -155,5 +176,25 @@ public class DAO {
             JOptionPane.showMessageDialog(null, "Erro: " + e);
         }
         return retorno;
+    }
+
+    public Caixa buscarID(Long id) {
+        Caixa caixa = new Caixa();
+        String sql = "select * from caixa where cai_id = " + id;
+        try {
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                caixa.setCliente(rs.getString("cai_cliente"));
+                caixa.setData(rs.getDate("cai_data"));
+                caixa.setValor(rs.getDouble("cai_valor"));
+                caixa.setPago(rs.getString("cai_pago"));
+            }
+            rs.close();
+            pstmt.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro: " + e);
+        }
+        return caixa;
     }
 }
