@@ -96,6 +96,7 @@ public class Login extends javax.swing.JFrame {
         if (jPasswordField1.getText().equals("fiat")) {
             Inicio in = new Inicio();
             in.setVisible(true);
+            this.dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Senha Incorreta.");
         }
@@ -105,6 +106,7 @@ public class Login extends javax.swing.JFrame {
         if (jPasswordField1.getText().equals("fiat")) {
             Inicio in = new Inicio();
             in.setVisible(true);
+            this.dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Senha Incorreta.");
         }

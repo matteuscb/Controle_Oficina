@@ -197,4 +197,38 @@ public class DAO {
         }
         return caixa;
     }
+
+    public Double TotalSaida() {
+        Double resul = .0;
+        try {
+            String sql = "SELECT SUM(CAI_VALOR) AS SAIDA FROM CAIXA WHERE CAI_TIPO = 'S' AND"
+                    + " EXTRACT(YEAR FROM CURRENT_DATE) = EXTRACT(YEAR FROM CAI_DATA)";
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                resul = rs.getDouble("saida");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro: " + ex);
+        }
+        return resul;
+
+    }
+
+    public Double TotalEntrada() {
+        Double resul = .0;
+        try {
+            String sql = "SELECT SUM(CAI_VALOR) AS ENTRADA FROM CAIXA WHERE CAI_TIPO = 'E' AND"
+                    + " EXTRACT(YEAR FROM CURRENT_DATE) = EXTRACT(YEAR FROM CAI_DATA)";
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                resul = rs.getDouble("entrada");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro: " + ex);
+        }
+        return resul;
+
+    }
 }

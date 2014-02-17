@@ -30,6 +30,8 @@ public class Pesquisa extends javax.swing.JFrame {
         this.setExtendedState(MAXIMIZED_BOTH);
         initComponents();
         setLocationRelativeTo(null);
+        jLEntrada_Anual.setText("Entrada Anual: " + format(dao.TotalEntrada()));
+        jLSaida_Anual.setText("Saída Anual: " + format(dao.TotalSaida()));
     }
 
     /**
@@ -59,6 +61,8 @@ public class Pesquisa extends javax.swing.JFrame {
         jBVoltar = new javax.swing.JButton();
         jBAlterar_Saida = new javax.swing.JButton();
         jBAlterar_Entrada = new javax.swing.JButton();
+        jLEntrada_Anual = new javax.swing.JLabel();
+        jLSaida_Anual = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -133,10 +137,22 @@ public class Pesquisa extends javax.swing.JFrame {
             }
         });
 
+        jLEntrada_Anual.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLEntrada_Anual.setText("Entrada Anual: ");
+
+        jLSaida_Anual.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLSaida_Anual.setText("Saída Anual: ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLLiquido)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTLiquido, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(491, 491, 491))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -146,7 +162,8 @@ public class Pesquisa extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLTotalEntrada)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jTEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLEntrada_Anual)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLDataInicial)
@@ -154,10 +171,6 @@ public class Pesquisa extends javax.swing.JFrame {
                         .addComponent(jDCInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLTotal_Saida)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jBPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -170,14 +183,14 @@ public class Pesquisa extends javax.swing.JFrame {
                                 .addComponent(jLDataFinal)
                                 .addGap(18, 18, 18)
                                 .addComponent(jDCFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLSaida_Anual)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLTotal_Saida)
+                            .addGap(18, 18, 18)
+                            .addComponent(jTSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(28, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLLiquido)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTLiquido, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(491, 491, 491))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jScrollPane1, jScrollPane2});
@@ -216,8 +229,10 @@ public class Pesquisa extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLLiquido)
-                    .addComponent(jTLiquido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(37, Short.MAX_VALUE))
+                    .addComponent(jTLiquido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLEntrada_Anual)
+                    .addComponent(jLSaida_Anual))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jScrollPane1, jScrollPane2});
@@ -292,7 +307,9 @@ public class Pesquisa extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser jDCInicial;
     private javax.swing.JLabel jLDataFinal;
     private javax.swing.JLabel jLDataInicial;
+    private javax.swing.JLabel jLEntrada_Anual;
     private javax.swing.JLabel jLLiquido;
+    private javax.swing.JLabel jLSaida_Anual;
     private javax.swing.JLabel jLTotalEntrada;
     private javax.swing.JLabel jLTotal_Saida;
     private javax.swing.JScrollPane jScrollPane1;
