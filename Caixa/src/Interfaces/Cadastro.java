@@ -186,10 +186,9 @@ public class Cadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_jBVoltarActionPerformed
 
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
-        jTCliente.setText("");
-        jTValor.setText("");
-        jDCData.setDate(null);
-        caixa = null;
+        Cadastro cadastro = new Cadastro();
+        cadastro.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jBLimparActionPerformed
 
     private void jBCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCadastrarActionPerformed

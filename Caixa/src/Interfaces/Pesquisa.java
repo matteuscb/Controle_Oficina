@@ -7,6 +7,7 @@ package Interfaces;
 import DAO.DAO;
 import Modelo.Caixa;
 import static java.awt.Frame.MAXIMIZED_BOTH;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -25,13 +26,17 @@ public class Pesquisa extends javax.swing.JFrame {
     DefaultTableModel tmCaixaE = new DefaultTableModel(null, new String[]{"Cliente", "Valor", "Data", "Pago"});
     DefaultTableModel tmCaixaS = new DefaultTableModel(null, new String[]{"Cliente", "Valor", "Data", "Pago"});
     DAO dao = new DAO();
+    List<Double> resul;
 
-    public Pesquisa() {
+    public Pesquisa() throws SQLException {
         this.setExtendedState(MAXIMIZED_BOTH);
         initComponents();
         setLocationRelativeTo(null);
         jLEntrada_Anual.setText("Entrada Anual: " + format(dao.TotalEntrada()));
         jLSaida_Anual.setText("Saída Anual: " + format(dao.TotalSaida()));
+        resul = dao.metas();
+        jLMetaEntrada.setText("Meta de Entrada: " + format(resul.get(0)));
+        jLMeta_Saida.setText("Meta de Saída: " + format(resul.get(1)));
     }
 
     /**
@@ -63,6 +68,8 @@ public class Pesquisa extends javax.swing.JFrame {
         jBAlterar_Entrada = new javax.swing.JButton();
         jLEntrada_Anual = new javax.swing.JLabel();
         jLSaida_Anual = new javax.swing.JLabel();
+        jLMetaEntrada = new javax.swing.JLabel();
+        jLMeta_Saida = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -143,6 +150,12 @@ public class Pesquisa extends javax.swing.JFrame {
         jLSaida_Anual.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLSaida_Anual.setText("Saída Anual: ");
 
+        jLMetaEntrada.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLMetaEntrada.setText("Meta de Entrada:");
+
+        jLMeta_Saida.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLMeta_Saida.setText("Meta de Saída:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -163,7 +176,8 @@ public class Pesquisa extends javax.swing.JFrame {
                                 .addComponent(jLTotalEntrada)
                                 .addGap(18, 18, 18)
                                 .addComponent(jTEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLEntrada_Anual)))
+                            .addComponent(jLEntrada_Anual)
+                            .addComponent(jLMetaEntrada)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLDataInicial)
@@ -186,6 +200,7 @@ public class Pesquisa extends javax.swing.JFrame {
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLSaida_Anual)
+                        .addComponent(jLMeta_Saida)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLTotal_Saida)
                             .addGap(18, 18, 18)
@@ -226,13 +241,22 @@ public class Pesquisa extends javax.swing.JFrame {
                     .addComponent(jLTotal_Saida)
                     .addComponent(jTEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLTotalEntrada))
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLLiquido)
-                    .addComponent(jTLiquido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLEntrada_Anual)
-                    .addComponent(jLSaida_Anual))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLLiquido)
+                            .addComponent(jTLiquido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLMeta_Saida)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLSaida_Anual))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLMetaEntrada)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLEntrada_Anual)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jScrollPane1, jScrollPane2});
@@ -309,6 +333,8 @@ public class Pesquisa extends javax.swing.JFrame {
     private javax.swing.JLabel jLDataInicial;
     private javax.swing.JLabel jLEntrada_Anual;
     private javax.swing.JLabel jLLiquido;
+    private javax.swing.JLabel jLMetaEntrada;
+    private javax.swing.JLabel jLMeta_Saida;
     private javax.swing.JLabel jLSaida_Anual;
     private javax.swing.JLabel jLTotalEntrada;
     private javax.swing.JLabel jLTotal_Saida;

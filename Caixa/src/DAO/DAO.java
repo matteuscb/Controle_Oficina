@@ -62,7 +62,7 @@ public class DAO {
 
     public List<Caixa> listarEntrada(java.util.Date DataI, java.util.Date DataF) {
         List<Caixa> caixas = new ArrayList<>();
-        String sql = "select * from caixa where cai_data >= ? and cai_data <=? and  cai_tipo = 'E'";
+        String sql = "select * from caixa where cai_data >= ? and cai_data <=? and  cai_tipo = 'E' order by cai_pago desc,cai_cliente";
 
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
@@ -89,8 +89,7 @@ public class DAO {
 
     public List<Caixa> listarSaida(java.util.Date DataI, java.util.Date DataF) {
         List<Caixa> caixas = new ArrayList<>();
-        String sql = "select * from caixa where cai_data >= ? and cai_data <=? and  cai_tipo = 'S'";
-
+        String sql = "select * from caixa where cai_data >= ? and cai_data <=? and  cai_tipo = 'S' order by cai_pago desc,cai_cliente";
         try {
             PreparedStatement pstmt = this.conexao.prepareStatement(sql);
             pstmt.setDate(1, new java.sql.Date(DataI.getTime()));
@@ -230,5 +229,17 @@ public class DAO {
         }
         return resul;
 
+    }
+
+    public List<Double> metas() throws SQLException {
+        List<Double> resul = new ArrayList<>();
+        String sql = "select * from metas";
+        PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()) {
+            resul.add(rs.getDouble("meta_entrada"));
+            resul.add(rs.getDouble("meta_saida"));
+        }
+        return resul;
     }
 }
