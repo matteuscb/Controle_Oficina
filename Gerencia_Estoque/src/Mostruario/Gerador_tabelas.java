@@ -29,13 +29,10 @@ public class Gerador_tabelas {
         JasperDesign desenho = JRXmlLoader.load(layout);
 
         //compila o relatório
-
         JasperReport relatorio = JasperCompileManager.compileReport(desenho);
 
         //estabelece conexão
-
         String query = "select mostruario,artigo,tipo,preco from tecidos where loja = '" + loja + "' order by mostruario";
-
 
         java.sql.PreparedStatement stmt = this.conexao.prepareStatement(query);
 
@@ -47,13 +44,11 @@ public class Gerador_tabelas {
         //executa o relatório
         HashMap parametros = new HashMap();
 
-
         parametros.put("mostruario", new Double(10));
         JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, jrRS);
         //JasperPrint impressao = JasperFillManager.fillReport( relatorio);
 
         //exibe o resultado
-
         JasperExportManager.exportReportToPdfFile(impressao, "C:/Gerencia_Estoque/pdfs/tabelas/Tabela-" + loja + ".pdf");
 
         /*JasperViewer viewer = new JasperViewer( impressao , true );

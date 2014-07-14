@@ -60,6 +60,13 @@ public class DAO {
         }
     }
 
+    public void atualiza() throws SQLException {
+        String sql = "UPDATE CAIXA SET CAI_PAGO = NULL WHERE CAI_PAGO != 'Pago'";
+        PreparedStatement stmt = this.conexao.prepareStatement(sql);
+        stmt.execute();
+        stmt.close();
+    }
+
     public List<Caixa> listarEntrada(java.util.Date DataI, java.util.Date DataF) {
         List<Caixa> caixas = new ArrayList<>();
         String sql = "select * from caixa where cai_data >= ? and cai_data <=? and  cai_tipo = 'E' order by cai_pago desc,cai_cliente";

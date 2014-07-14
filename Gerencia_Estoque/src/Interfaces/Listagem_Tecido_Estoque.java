@@ -15,8 +15,8 @@ public class Listagem_Tecido_Estoque extends javax.swing.JInternalFrame {
         initComponents();
         this.funcao = funcao;
         jLCab.setText(funcao);
-
         getContentPane().setBackground(Color.white);
+
     }
 
     @SuppressWarnings("unchecked")
@@ -173,7 +173,6 @@ public class Listagem_Tecido_Estoque extends javax.swing.JInternalFrame {
             jTMost.setText(tecido.getMostruario());
             jTCor.setText(tecido.getCor());
             jTQuantidade.setText(String.valueOf(tecido.getQuantidade()));
-
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro:\n" + ex);

@@ -1,9 +1,13 @@
 package Interfaces;
 
+import DAO.TecidoDAO;
 import Mostruario.Gerador_tabelas;
 import Mostruario.Gerador_Mostruarios;
 import java.awt.Color;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 
@@ -11,7 +15,7 @@ public class Gerencia extends javax.swing.JInternalFrame {
 
     public Gerencia() {
         initComponents();
-        getContentPane().setBackground(Color.white);
+
     }
 
     @SuppressWarnings("unchecked")
@@ -181,19 +185,34 @@ public class Gerencia extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBTabelaActionPerformed
 
     private void jBMostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBMostActionPerformed
-        String most = jTMost.getText();
-        String layout = "C:\\Gerencia_Estoque\\pdfs\\Mostruarios\\XML\\Mostruario.jrxml";
-        try {
-            Gerador_Mostruarios rel = new Gerador_Mostruarios();
+        if (jTMost.getText().equals("")) {
             try {
-                rel.gerar(layout, most);
-            } catch (JRException ex) {
-                ex.printStackTrace();
-            } catch (ClassNotFoundException ex) {
+                TecidoDAO tdao = new TecidoDAO();
+                List<String> mostruarios = tdao.getMostruarios();
+                String most = jTMost.getText();
+                String layout = "C:\\Gerencia_Estoque\\pdfs\\Mostruarios\\XML\\Mostruario.jrxml";
+                Gerador_Mostruarios rel = new Gerador_Mostruarios();
+                for (int i = 0; i < mostruarios.size(); i++) {
+                    rel.gerar(layout, mostruarios.get(i));
+                }
+            } catch (SQLException ex) {
+            } catch (JRException | ClassNotFoundException ex) {
                 ex.printStackTrace();
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+
+        } else {
+            String most = jTMost.getText();
+            String layout = "C:\\Gerencia_Estoque\\pdfs\\Mostruarios\\XML\\Mostruario.jrxml";
+            try {
+                Gerador_Mostruarios rel = new Gerador_Mostruarios();
+                try {
+                    rel.gerar(layout, most);
+                } catch (JRException | ClassNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
     }//GEN-LAST:event_jBMostActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables

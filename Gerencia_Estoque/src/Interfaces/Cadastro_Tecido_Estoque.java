@@ -10,7 +10,7 @@ public class Cadastro_Tecido_Estoque extends javax.swing.JInternalFrame {
 
     public Cadastro_Tecido_Estoque() {
         initComponents();
-        getContentPane().setBackground(Color.white);
+
     }
 
     @SuppressWarnings("unchecked")

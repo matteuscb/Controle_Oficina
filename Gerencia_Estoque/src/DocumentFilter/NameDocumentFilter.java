@@ -28,8 +28,6 @@ public class NameDocumentFilter extends DocumentFilter {
         }
         fb.insertString(offs, str, a);
 
-
-
     }
 
     public void replace(FilterBypass fb, int offs,

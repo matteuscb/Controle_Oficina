@@ -22,7 +22,7 @@ public class Edicao_Tecido extends javax.swing.JInternalFrame {
 
     public Edicao_Tecido() {
         initComponents();
-        getContentPane().setBackground(Color.white);
+
         /*DocumentFilter filter = new NameDocumentFilter();
          ((AbstractDocument) jTPre.getDocument()).setDocumentFilter(filter);*/
     }

@@ -50,7 +50,6 @@ public class ClienteDAO {
         List<Cliente> clientes = new ArrayList<>();
 
         while (rs.next()) {
-
             Cliente t = new Cliente();
             t.setNome(rs.getString("cli_nome"));
             t.setCelular(rs.getString("cli_celular"));

@@ -10,6 +10,8 @@ import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -306,10 +308,13 @@ public class Pesquisa extends javax.swing.JFrame {
     }//GEN-LAST:event_jBPesquisarActionPerformed
 
     private void jBVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVoltarActionPerformed
-        Inicio in = new Inicio();
-        in.setVisible(true);
-        setVisible(false);
-    }//GEN-LAST:event_jBVoltarActionPerformed
+ try {
+                Inicio in = new Inicio();
+                in.setVisible(true);
+                this.dispose();
+            } catch (SQLException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }    }//GEN-LAST:event_jBVoltarActionPerformed
 
     private void jBAlterar_SaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAlterar_SaidaActionPerformed
         Alterar ac = new Alterar(caixasS.get(Tabela_Saida.getSelectedRow()).getId());

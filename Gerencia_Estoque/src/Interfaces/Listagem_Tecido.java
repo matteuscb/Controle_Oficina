@@ -17,8 +17,8 @@ public class Listagem_Tecido extends javax.swing.JInternalFrame {
         initComponents();
         this.funcao = funcao;
         jLCab.setText(funcao);
-
         getContentPane().setBackground(Color.white);
+
     }
 
     @SuppressWarnings("unchecked")

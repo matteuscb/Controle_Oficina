@@ -180,10 +180,13 @@ public class Cadastro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBVoltarActionPerformed
-        Inicio in = new Inicio();
-        in.setVisible(true);
-        setVisible(false);
-    }//GEN-LAST:event_jBVoltarActionPerformed
+        try {
+            Inicio in = new Inicio();
+            in.setVisible(true);
+            this.dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }    }//GEN-LAST:event_jBVoltarActionPerformed
 
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
         Cadastro cadastro = new Cadastro();

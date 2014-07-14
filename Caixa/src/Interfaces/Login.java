@@ -4,6 +4,9 @@
  */
 package Interfaces;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -93,21 +96,28 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (jPasswordField1.getText().equals("fiat")) {
-            Inicio in = new Inicio();
-            in.setVisible(true);
-            this.dispose();
+        if (jPasswordField1.getText().equals("fiat")||jPasswordField1.getText().equals("FIAT")) {
+            try {
+                Inicio in = new Inicio();
+                in.setVisible(true);
+                this.dispose();
+            } catch (SQLException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Senha Incorreta.");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
-        if (jPasswordField1.getText().equals("fiat")) {
-            Inicio in = new Inicio();
-            in.setVisible(true);
-            this.dispose();
-        } else {
+        if (jPasswordField1.getText().equals("fiat")||jPasswordField1.getText().equals("FIAT")) {
+             try {
+                Inicio in = new Inicio();
+                in.setVisible(true);
+                this.dispose();
+            } catch (SQLException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }} else {
             JOptionPane.showMessageDialog(null, "Senha Incorreta.");
         }
     }//GEN-LAST:event_jPasswordField1ActionPerformed

@@ -25,7 +25,7 @@ public class Edicao_Tecido_Estoque extends javax.swing.JInternalFrame {//most ar
 
     public Edicao_Tecido_Estoque() {
         initComponents();
-        getContentPane().setBackground(Color.white);
+
     }
 
     @SuppressWarnings("unchecked")

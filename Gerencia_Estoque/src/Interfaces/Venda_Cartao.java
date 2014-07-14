@@ -25,7 +25,7 @@ public class Venda_Cartao extends javax.swing.JInternalFrame {
 
     public Venda_Cartao() {
         initComponents();
-        getContentPane().setBackground(Color.white);
+
         /*DocumentFilter filter = new NameDocumentFilter();
          ((AbstractDocument) jTPre.getDocument()).setDocumentFilter(filter);*/
     }

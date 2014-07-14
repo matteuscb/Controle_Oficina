@@ -1,7 +1,6 @@
 package Interfaces;
 
 import DAO.CartaoDAO;
-import backup.Backup;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.logging.Level;
@@ -38,8 +37,10 @@ public class Principal extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMIMost = new javax.swing.JMenuItem();
         jMCliente = new javax.swing.JMenu();
         jMICadastroCliente = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMCartao = new javax.swing.JMenu();
         jMIVenda = new javax.swing.JMenuItem();
         jMIListar = new javax.swing.JMenuItem();
@@ -144,19 +145,37 @@ public class Principal extends javax.swing.JFrame {
 
         jMTecido.add(jMCadastro);
 
+        jMIMost.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMIMost.setText("Mostruário");
+        jMIMost.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMIMostActionPerformed(evt);
+            }
+        });
+        jMTecido.add(jMIMost);
+
         jMBarra.add(jMTecido);
 
-        jMCliente.setText("Cliente");
+        jMCliente.setText("Clientes - Fornecedores");
         jMCliente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jMICadastroCliente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jMICadastroCliente.setText("Cadastro de Cliente");
+        jMICadastroCliente.setText("Controle de Cliente");
         jMICadastroCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMICadastroClienteActionPerformed(evt);
             }
         });
         jMCliente.add(jMICadastroCliente);
+
+        jMenuItem4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jMenuItem4.setText("Controle de Fornecedor");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMCliente.add(jMenuItem4);
 
         jMBarra.add(jMCliente);
 
@@ -260,14 +279,27 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMIPDFsActionPerformed
 
     private void jMIRealizarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIRealizarBActionPerformed
-        Backup bac = new Backup();
-        bac.fazBackup();
+
     }//GEN-LAST:event_jMIRealizarBActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        Backup bac = new Backup();
-        bac.realizaRestore();
+
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMIMostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIMostActionPerformed
+        Tela_Mostruario most = new Tela_Mostruario(Painel);
+        most.setVisible(true);
+    }//GEN-LAST:event_jMIMostActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        try {
+            Cadastro_Fornecedor cf = new Cadastro_Fornecedor(Painel);
+            Painel.add(cf);
+            cf.setVisible(true);
+        } catch (ParseException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     public static void main(String args[]) {
 
@@ -311,6 +343,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMICadastro_Estoque;
     private javax.swing.JMenuItem jMICadastro_Mostruario;
     private javax.swing.JMenuItem jMIListar;
+    private javax.swing.JMenuItem jMIMost;
     private javax.swing.JMenuItem jMIPDFs;
     private javax.swing.JMenuItem jMIPesqusa_Mostruario;
     private javax.swing.JMenuItem jMIRealizarB;
@@ -320,6 +353,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }

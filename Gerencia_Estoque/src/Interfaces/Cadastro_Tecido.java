@@ -15,7 +15,7 @@ public class Cadastro_Tecido extends javax.swing.JInternalFrame {
 
     public Cadastro_Tecido() {
         initComponents();
-        getContentPane().setBackground(Color.white);
+
         /*DocumentFilter filter = new NameDocumentFilter();
          ((AbstractDocument) jTPre.getDocument()).setDocumentFilter(filter);*/
     }
@@ -206,7 +206,6 @@ public class Cadastro_Tecido extends javax.swing.JInternalFrame {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro: " + ex);
         }
-
 
     }//GEN-LAST:event_jButton1ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables

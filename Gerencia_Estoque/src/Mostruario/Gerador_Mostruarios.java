@@ -30,13 +30,10 @@ public class Gerador_Mostruarios {
         JasperDesign desenho = JRXmlLoader.load(layout);
 
         //compila o relatório
-
         JasperReport relatorio = JasperCompileManager.compileReport(desenho);
 
         //estabelece conexão
-
         String query = "select mostruario,artigo,tipo,preco from tecidos where mostruario = '" + mostruario + "' order by artigo";
-
 
         java.sql.PreparedStatement stmt = this.conexao.prepareStatement(query);
 
@@ -48,13 +45,11 @@ public class Gerador_Mostruarios {
         //executa o relatório
         HashMap parametros = new HashMap();
 
-
         parametros.put("mostruario", new Double(10));
         JasperPrint impressao = JasperFillManager.fillReport(relatorio, parametros, jrRS);
         //JasperPrint impressao = JasperFillManager.fillReport( relatorio);
 
         //exibe o resultado
-
         JasperExportManager.exportReportToPdfFile(impressao, "C:/Gerencia_Estoque/pdfs/mostruarios/Mostruario-" + mostruario + ".pdf");
 
         /*JasperViewer viewer = new JasperViewer( impressao , true );

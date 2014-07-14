@@ -176,6 +176,23 @@ public class TecidoDAO {
         }
     }
 
+    public List<String> getMostruarios() {
+        List<String> mostruarios = new ArrayList<>();
+        try {
+            String sql = "select distinct mostruario from tecidos";
+            PreparedStatement pstmt = this.conexao.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                String most = rs.getString("mostruario");
+                mostruarios.add(most);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return mostruarios;
+    }
+
     public List<Tecido> getListaEstoque(String artigo) {
         List<Tecido> tecidos = new ArrayList<Tecido>();
         try {
@@ -199,7 +216,6 @@ public class TecidoDAO {
             ex.printStackTrace();
         }
         return tecidos;
-
 
     }
 }

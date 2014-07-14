@@ -20,7 +20,7 @@ public class Lista_Cartao extends javax.swing.JInternalFrame {
 
     public Lista_Cartao() {
         initComponents();
-        getContentPane().setBackground(Color.white);
+
     }
 
     @SuppressWarnings("unchecked")
@@ -170,7 +170,6 @@ public class Lista_Cartao extends javax.swing.JInternalFrame {
                 cartoes = cdao.listarGeral("Pendente");
             }
 
-
             while (tmCartao.getRowCount() > 0) {
                 tmCartao.removeRow(0);
             }
@@ -189,7 +188,6 @@ public class Lista_Cartao extends javax.swing.JInternalFrame {
                 tmCartao.setValueAt(cartoes.get(i).getTipo(), i, 8);
 
             }
-
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro: " + ex);
@@ -210,7 +208,6 @@ public class Lista_Cartao extends javax.swing.JInternalFrame {
             } else {
                 cartoes = cdao.listarCredito("Pendente");
             }
-
 
             while (tmCartao.getRowCount() > 0) {
                 tmCartao.removeRow(0);
@@ -286,7 +283,6 @@ public class Lista_Cartao extends javax.swing.JInternalFrame {
             if (jCBPaga.isSelected() == true) {
 
                 cartoes = cdao.listarMes("Pago");
-
 
             } else {
                 cartoes = cdao.listarMes("Pendente");
@@ -367,7 +363,6 @@ public class Lista_Cartao extends javax.swing.JInternalFrame {
                 if (jCBPaga.isSelected() == true) {
 
                     cartoes = cdao.listarCPF("Pago", jTCPF.getText());
-
 
                 } else {
                     cartoes = cdao.listarCPF("Pendente", jTCPF.getText());

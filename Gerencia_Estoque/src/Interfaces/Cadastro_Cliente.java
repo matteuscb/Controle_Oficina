@@ -21,10 +21,11 @@ public class Cadastro_Cliente extends javax.swing.JInternalFrame {
     ListSelectionModel lsmCliente;
 
     public Cadastro_Cliente() throws ParseException {
+        super("Controle de Clientes");
         initComponents();
-        getContentPane().setBackground(Color.white);
+
         MaskFormatter maskData = new MaskFormatter("(##) ####-####");
-        MaskFormatter maskData2 = new MaskFormatter("(##) ####-####");
+        MaskFormatter maskData2 = new MaskFormatter("(##) #####-####");
         maskData.install(JFTTelefone);
         maskData2.install(jFTCelular);
     }
@@ -155,6 +156,16 @@ public class Cadastro_Cliente extends javax.swing.JInternalFrame {
         });
 
         jTPesquisar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTPesquisarActionPerformed(evt);
+            }
+        });
+        jTPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTPesquisarKeyTyped(evt);
+            }
+        });
 
         Tabela.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         Tabela.setModel(tmCliente);
@@ -297,7 +308,7 @@ public class Cadastro_Cliente extends javax.swing.JInternalFrame {
                     .addComponent(jBPesquisar)
                     .addComponent(jTPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -348,8 +359,6 @@ public class Cadastro_Cliente extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Erro:\n" + ex);
         }
 
-
-
     }//GEN-LAST:event_jBEditarActionPerformed
 
     private void jBLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBLimparActionPerformed
@@ -377,7 +386,6 @@ public class Cadastro_Cliente extends javax.swing.JInternalFrame {
             clientes = dao.listar("%" + jTPesquisar.getText() + "%");
 
             String endereco;
-
 
             while (tmCliente.getRowCount() > 0) {
                 tmCliente.removeRow(0);
@@ -413,7 +421,7 @@ public class Cadastro_Cliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_TabelaMouseClicked
 
     private void jBExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBExcluirActionPerformed
-        int pergunta = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir esta sessão?\n");
+        int pergunta = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir este cliente?");
         if (pergunta == 0) {//clicou em sim  
             try {
                 ClienteDAO dao = new ClienteDAO();
@@ -425,6 +433,63 @@ public class Cadastro_Cliente extends javax.swing.JInternalFrame {
         } else if (pergunta == 1) {//clicou em nao  
         }
     }//GEN-LAST:event_jBExcluirActionPerformed
+
+    private void jTPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTPesquisarActionPerformed
+        try {
+            ClienteDAO dao = new ClienteDAO();
+
+            clientes = dao.listar("%" + jTPesquisar.getText() + "%");
+
+            String endereco;
+
+            while (tmCliente.getRowCount() > 0) {
+                tmCliente.removeRow(0);
+            }
+
+            String[] linha = new String[]{null, null, null, null};
+            for (int i = 0; i < clientes.size(); i++) {
+                endereco = clientes.get(i).getRua() + " " + clientes.get(i).getNumero() + ", " + clientes.get(i).getBairro() + " - " + clientes.get(i).getCidade();
+                tmCliente.addRow(linha);
+                tmCliente.setValueAt(clientes.get(i).getNome(), i, 0);
+                tmCliente.setValueAt(clientes.get(i).getRg(), i, 1);
+                tmCliente.setValueAt(endereco, i, 2);
+                tmCliente.setValueAt(clientes.get(i).getCelular(), i, 3);
+                tmCliente.setValueAt(clientes.get(i).getTelefone(), i, 4);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro: " + ex);
+        }
+
+    }//GEN-LAST:event_jTPesquisarActionPerformed
+
+    private void jTPesquisarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPesquisarKeyTyped
+        try {
+            ClienteDAO dao = new ClienteDAO();
+
+            clientes = dao.listar("%" + jTPesquisar.getText() + "%");
+
+            String endereco;
+
+            while (tmCliente.getRowCount() > 0) {
+                tmCliente.removeRow(0);
+            }
+
+            String[] linha = new String[]{null, null, null, null};
+            for (int i = 0; i < clientes.size(); i++) {
+                endereco = clientes.get(i).getRua() + " " + clientes.get(i).getNumero() + ", " + clientes.get(i).getBairro() + " - " + clientes.get(i).getCidade();
+                tmCliente.addRow(linha);
+                tmCliente.setValueAt(clientes.get(i).getNome(), i, 0);
+                tmCliente.setValueAt(clientes.get(i).getRg(), i, 1);
+                tmCliente.setValueAt(endereco, i, 2);
+                tmCliente.setValueAt(clientes.get(i).getCelular(), i, 3);
+                tmCliente.setValueAt(clientes.get(i).getTelefone(), i, 4);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro: " + ex);
+        }
+
+    }//GEN-LAST:event_jTPesquisarKeyTyped
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFormattedTextField JFTTelefone;
     private javax.swing.JTable Tabela;

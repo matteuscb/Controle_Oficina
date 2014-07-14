@@ -4,6 +4,7 @@
  */
 package Interfaces;
 
+import DAO.DAO;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,10 +18,12 @@ public class Inicio extends javax.swing.JFrame {
     /**
      * Creates new form Inicio
      */
-    public Inicio() {
+    public Inicio() throws SQLException {
         initComponents();
         setLocationRelativeTo(null);
         this.setResizable(false);
+        DAO dao = new DAO();
+        dao.atualiza();
     }
 
     /**
